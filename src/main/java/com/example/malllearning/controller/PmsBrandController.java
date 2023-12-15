@@ -5,6 +5,8 @@ import com.example.malllearning.common.api.CommonPage;
 import com.example.malllearning.common.api.CommonResult;
 import com.example.malllearning.mbg.model.PmsBrand;
 import com.example.malllearning.service.PmsBrandService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags = "PmsBrandController", description = "Brand Controller")
 @Controller
 @RequestMapping("/brand")
 public class PmsBrandController {
@@ -24,6 +27,7 @@ public class PmsBrandController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsBrandController.class);
 
+    @ApiOperation("get all brand list")
     @RequestMapping(value = "listAll", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<PmsBrand>> getBrandList() {
@@ -31,6 +35,7 @@ public class PmsBrandController {
         return response;
     }
 
+    @ApiOperation("add new Brand")
     @RequestMapping(value="/create", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult createBrand(@RequestBody PmsBrand pmsBrand) {
@@ -46,6 +51,7 @@ public class PmsBrandController {
         return commonResult;
     }
 
+    @ApiOperation("delete the id = {id} brand")
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult deleteBrand(@PathVariable("id") Long id) {
@@ -60,6 +66,7 @@ public class PmsBrandController {
     }
 
 
+    @ApiOperation("get pageNum with pageSize brand list")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<PmsBrand>> listBrand(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
@@ -69,7 +76,7 @@ public class PmsBrandController {
     }
 
 
-
+    @ApiOperation("get the id brand info")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<PmsBrand> getBrandById(@PathVariable("id") Long id) {
